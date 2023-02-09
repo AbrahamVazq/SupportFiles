@@ -3,15 +3,22 @@
 schema=""
 bold=$(tput bold)
 normal=$(tput sgr0)
+var=$(cat ~/.xcConfirm.txt)
 
-echo " ·-= Cual ${bold}xcframework ${normal}vamos a generar? =-·
+NC='\033[0m' # No Color
+RED='\033[0;31m'
+GREEN='\033[92m'
+RED_SUB='\033[101m'
+L_CYAN='\033[96m'
+CYAN='\033[46m'
 
- 1) Remesas
- 2) Nomina
- 3) Autobuses
- 4) Seguros
- 5) Mis Compras
- 6) Mis Pedidos"
+printf "\n\n\n"
+echo -e " ·-= Cual ${bold}xcframework ${normal}vamos a generar? =-·
+
+ ${L_CYAN}1) Remesas
+ ${L_CYAN}2) Nomina
+ ${L_CYAN}3) Autobuses
+ ${L_CYAN}4) Seguros"
 
 read xc
 
@@ -32,25 +39,17 @@ case $xc in
     schema="GSInsurance"
     cd ~/Documents/bazSuperApp/Seguros/GSSACoreFrameworks_iOS
  ;;
-  5 )
-    schema="GSInsurance"
-    cd ~/Documents/bazSuperApp/Seguros/GSSACoreFrameworks_iOS
- ;;
-  6 )
-    schema="GSInsurance"
-    cd ~/Documents/bazSuperApp/Seguros/GSSACoreFrameworks_iOS
- ;;
  
  * )
- echo "${bold}Pon atencion a las instrucciones todo ciego!!!"
+ echo -e "${CYAN}${bold}Pon atencion a las instrucciones todo ciego!!!"
  exit
  ;;
 
 esac
 
-echo "\n\nCreando el xcframework de ${bold}>> ${schema} <<\n"
+echo "  Creando el xcframework de ${bold}>> ${schema} <<\n"
 
-echo "\n\n\n\nCreando el Archive para Simulador\n\n\n"
+echo "  Creando el Archive para Simulador\n\n\n"
 
 xcodebuild archive \
  -scheme ${schema} \
@@ -58,7 +57,7 @@ xcodebuild archive \
  -sdk iphonesimulator \
  SKIP_INSTALL=NO
 
-echo "\n\nCreando el Archive para dispositivo fisico\n"
+echo "  Creando el Archive para dispositivo fisico\n"
 
 xcodebuild archive \
  -scheme ${schema}  \
@@ -66,12 +65,13 @@ xcodebuild archive \
  -sdk iphoneos \
  SKIP_INSTALL=NO
  
-echo "\n\n\n\nArmando el xcframework ... un segundo\n\n\n"
+echo "   Armando el xcframework ... un segundo\n\n\n"
 
 xcodebuild -create-xcframework \
  -framework ~/${schema}-iphonesimulator.xcarchive/Products/Library/Frameworks/${schema}.framework \
  -framework ~/${schema}-iphoneos.xcarchive/Products/Library/Frameworks/${schema}.framework \
  -output ~/Desktop/${schema}.xcframework
 
-#cat ~/.xcConfirm.txt
+echo -e "${GREEN}${bold}$var"
+open ~/desktop
 exit
