@@ -79,3 +79,13 @@ xcodebuild -create-xcframework \
 echo -e "${GREEN}${bold}$confirm"
 open ~/desktop
 exit
+
+# TO-DO:
+# Iluminar las salidas de ambos esquemas, simulador y iphone
+# eliminar los xcodebuild archive de salida despues de abrir el escritorio
+# investigar como poder leer las salidas de las consutrcciones para saber si hay errores o no
+
+#
+#XC Generator version 0.2, NS-Bionick software.
+#Copyright (C) 2022-2023 NS-Bionick Development Team
+#
