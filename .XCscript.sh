@@ -3,7 +3,8 @@
 schema=""
 bold=$(tput bold)
 normal=$(tput sgr0)
-var=$(cat ~/.xcConfirm.txt)
+confirm=$(cat ~/.xcConfirm.txt)
+title=$(cat ~/.xcCreator.txt)
 
 NC='\033[0m' # No Color
 RED='\033[0;31m'
@@ -11,14 +12,17 @@ GREEN='\033[92m'
 RED_SUB='\033[101m'
 L_CYAN='\033[96m'
 CYAN='\033[46m'
+YELLOW='\033[93m'
 
 printf "\n\n\n"
+echo -e "${YELLOW}${bold}$title${NC}"
+echo ""
 echo -e " ·-= Cual ${bold}xcframework ${normal}vamos a generar? =-·
 
  ${L_CYAN}1) Remesas
  ${L_CYAN}2) Nomina
  ${L_CYAN}3) Autobuses
- ${L_CYAN}4) Seguros"
+ ${L_CYAN}4) Seguros${NC}"
 
 read xc
 
@@ -72,6 +76,6 @@ xcodebuild -create-xcframework \
  -framework ~/${schema}-iphoneos.xcarchive/Products/Library/Frameworks/${schema}.framework \
  -output ~/Desktop/${schema}.xcframework
 
-echo -e "${GREEN}${bold}$var"
+echo -e "${GREEN}${bold}$confirm"
 open ~/desktop
 exit
