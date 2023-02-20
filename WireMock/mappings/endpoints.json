@@ -1,0 +1,21 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "url": "/api/baz/misPedidos/travels"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "api_baz_misPedidos_travels.json"
+      }
+    },
+    {
+      "request": {
+        "url": "/api/bdm/security/doLogout"
+      },
+      "response": {
+        "status": 200
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+	"codigoOperacion":"0",
+	"descripcion":"Operacion exitosa papito Chulo",
+	"folio":"12020921153839304",
+    "productos":[
+        {
+        "travelO": "Origen",
+        "travelD": "Destino",
+        "date": "23-05, 08:30",
+        "status": "Por usar",
+        }
+    ]
+}
