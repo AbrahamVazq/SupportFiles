@@ -22,7 +22,8 @@ echo -e " ·-= Cual ${bold}xcframework ${normal}vamos a generar? =-·
  ${L_CYAN}1) Remesas
  ${L_CYAN}2) Nomina
  ${L_CYAN}3) Autobuses
- ${L_CYAN}4) Seguros${NC}"
+ ${L_CYAN}4) Seguros
+ ${L_CYAN}5) Compras${NC}"
 
 read xc
 
@@ -42,6 +43,11 @@ case $xc in
  4 )
     schema="GSInsurance"
     cd ~/Documents/bazSuperApp/Seguros/GSSACoreFrameworks_iOS
+ ;;
+
+ 5 )
+    schema="EKSAPurchases"
+    cd ~/Documents/bazSuperApp/MisCompras/GSSACoreFrameworks_iOS
  ;;
  
  * )
@@ -89,3 +95,4 @@ exit
 #XC Generator version 0.2, NS-Bionick software.
 #Copyright (C) 2022-2023 NS-Bionick Development Team
 #
+
