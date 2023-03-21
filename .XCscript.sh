@@ -23,7 +23,9 @@ echo -e " ·-= Cual ${bold}xcframework ${normal}vamos a generar? =-·
  ${L_CYAN}2) Nomina
  ${L_CYAN}3) Autobuses
  ${L_CYAN}4) Seguros
- ${L_CYAN}5) Compras${NC}"
+ ${L_CYAN}5) Compras
+ ${L_CYAN}6) Pedidos
+ ${L_CYAN}7) Compras Reverso${NC}"
 
 read xc
 
@@ -49,6 +51,16 @@ case $xc in
     schema="EKSAPurchases"
     cd ~/Documents/bazSuperApp/MisCompras/GSSACoreFrameworks_iOS
  ;;
+ 
+ 6) schema="GSSAMyOrders"
+     cd ~/Documents/bazSuperApp/MisPedidos/GSSACoreFrameworks_iOS
+ ;;
+ 
+ 7)
+    schema="EKSAPurchases"
+    cd ~/Documents/bazSuperApp/REVERSE_COMPRAS/GSSACoreFrameworks_iOS
+ ;;
+ 
  
  * )
  echo -e "${CYAN}${bold}Pon atencion a las instrucciones todo ciego!!!"
