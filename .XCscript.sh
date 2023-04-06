@@ -13,19 +13,28 @@ RED_SUB='\033[101m'
 L_CYAN='\033[96m'
 CYAN='\033[46m'
 YELLOW='\033[93m'
+PURPLE='\033[35m'
+BLUE='\033[34m'
 
-printf "\n\n\n"
 echo -e "${YELLOW}${bold}$title${NC}"
 echo ""
 echo -e " ·-= Cual ${bold}xcframework ${normal}vamos a generar? =-·
 
  ${L_CYAN}1) Remesas
- ${L_CYAN}2) Nomina
- ${L_CYAN}3) Autobuses
- ${L_CYAN}4) Seguros
- ${L_CYAN}5) Compras
- ${L_CYAN}6) Pedidos
- ${L_CYAN}7) Compras Reverso${NC}"
+ 2) Nomina
+ 3) Autobuses
+ 4) Seguros
+ 5) Compras
+ 6) Pedidos
+ 7) Compras Reverso
+ 8) Chat
+ 9) Searcher
+ 10) Helper
+ 11) Red Social
+ 12) Syncronize
+ 13) Multimedia
+ 14) User Profile
+ 15) Gifs${NC}"
 
 read xc
 
@@ -60,8 +69,47 @@ case $xc in
     schema="EKSAPurchases"
     cd ~/Documents/bazSuperApp/REVERSE_COMPRAS/GSSACoreFrameworks_iOS
  ;;
- 
- 
+
+ 8)
+    schema="UPFMChat"
+    cd ~/Documents/bazSuperApp/UPAX/Chat/superapp-ios-sdk-chat
+ ;;
+
+ 9)
+    schema="UPFMSearcher"
+    cd ~/Documents/bazSuperApp/UPAX/Searcher/superapp-ios-sdk-searcher
+ ;;
+
+ 10)
+    schema="UPFMHelper"
+    cd ~/Documents/bazSuperApp/UPAX/Helper/superapp-ios-sdk-helper
+ ;;
+
+ 11)
+    schema="UPFMSocialNetwork"
+    cd ~/Documents/bazSuperApp/UPAX/Red\ Social/superapp-ios-sdk-socialnetwork
+ ;;
+
+ 12)
+    schema="UPFMDeviceContacts"
+    cd ~/Documents/bazSuperApp/UPAX/Sincronizacion/superapp-ios-sdk-synchronization
+ ;;
+
+ 13)
+    schema="UPFMMultimedia"
+    cd ~/Documents/bazSuperApp/UPAX/Multimedia/superapp-ios-sdk-multimedia
+ ;;
+
+ 14)
+    schema="UPFMUserProfile"
+    cd ~/Documents/bazSuperApp/UPAX/Profile/superapp-ios-sdk-profile
+ ;;
+
+ 15)
+    schema="UPFMGifs"
+    cd ~/Documents/bazSuperApp/UPAX/Multimedios/superapp-ios-sdk-multimedios
+ ;;
+
  * )
  echo -e "${CYAN}${bold}Pon atencion a las instrucciones todo ciego!!!"
  exit
@@ -69,42 +117,87 @@ case $xc in
 
 esac
 
-echo "  Creando el xcframework de ${bold}>> ${schema} <<\n"
+if [[ -d ~/Desktop/XCFrameworks_${schema} ]]
+then
+   rm -R ~/Desktop/XCFrameworks_${schema}/*
+else
+   mkdir ~/Desktop/XCFrameworks_${schema}
+fi
 
-echo "  Creando el Archive para Simulador\n\n\n"
+echo "  Creando el xcframework de ${bold}>> ${schema} <<"
+echo "  Creando el Archive para Simulador  "
+
+echo -e "${PURPLE}${bold} "
+
+
+
+
+######################################################################################################
 
 xcodebuild archive \
  -scheme ${schema} \
  -archivePath ~/${schema}-iphonesimulator.xcarchive \
  -sdk iphonesimulator \
- SKIP_INSTALL=NO
+ SKIP_INSTALL=NO  >> ~/${schema}-Simulador.txt
 
-echo "  Creando el Archive para dispositivo fisico\n"
 
-xcodebuild archive \
- -scheme ${schema}  \
- -archivePath ~/${schema}-iphoneos.xcarchive \
- -sdk iphoneos \
- SKIP_INSTALL=NO
- 
-echo "   Armando el xcframework ... un segundo\n\n\n"
+if [[  ! -z $(grep 'SUCCEEDED' ~/${schema}-Simulador.txt ) ]]
+then
 
-xcodebuild -create-xcframework \
- -framework ~/${schema}-iphonesimulator.xcarchive/Products/Library/Frameworks/${schema}.framework \
- -framework ~/${schema}-iphoneos.xcarchive/Products/Library/Frameworks/${schema}.framework \
- -output ~/Desktop/${schema}.xcframework
+    rm -R ~/${schema}-*.txt
+    echo -e "${NC}"
+    echo -e "${BLUE}${bold}"
+    echo "  Creando el Archive para dispositivo fisico"
 
-echo -e "${GREEN}${bold}$confirm"
-open ~/desktop
+    xcodebuild archive \
+    -scheme ${schema} \
+    -archivePath ~/${schema}-iphoneos.xcarchive \
+    -sdk iphoneos \
+    SKIP_INSTALL=NO >> ~/${schema}-Dispositivo.txt
+
+    if [[ ! -z $(grep 'SUCCEEDED' ~/${schema}-Dispositivo.txt ) ]]
+    then
+         rm -R ~/${schema}-*.txt
+         echo "   Armando el xcframework ... un segundo"
+
+         xcodebuild -create-xcframework \
+         -framework ~/${schema}-iphonesimulator.xcarchive/Products/Library/Frameworks/${schema}.framework \
+         -framework ~/${schema}-iphoneos.xcarchive/Products/Library/Frameworks/${schema}.framework \
+         -output ~/Desktop/XCFrameworks_${schema}/${schema}.xcframework
+
+         echo -e "${GREEN}${bold}$confirm"
+         open ~/desktop/XCFrameworks_${schema}
+         #exit
+
+    else
+         echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE DISPOSITIVO"
+         mv ~/${schema}-Dispositivo.txt  ~/DispositivoError_$(date +%Y-%m-%d).txt
+   
+   fi
+
+else
+    echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE SIMULADOR"
+    mv ~/${schema}-Simulador.txt  ~/SimuladorError_$(date +%Y-%m-%d).txt
+    exit
+fi
+
+
+######################################################################################################
+
+
+###Aquí borrar el o los archivos que haya
+echo -e "Ya terminamos algún proceso, procedemos a limpiar nuestro desmadre"
+
+rm -R ~/${schema}-*.*
 exit
 
+
 # TO-DO:
-# Iluminar las salidas de ambos esquemas, simulador y iphone
-# eliminar los xcodebuild archive de salida despues de abrir el escritorio
-# investigar como poder leer las salidas de las consutrcciones para saber si hay errores o no
+# Agregar una animacion y saber donde pararla
+# validar que si el directorio existe, pero no hay archivos, no mandar error
 
 #
-#XC Generator version 0.2, NS-Bionick software.
+#XC Generator version 1.1 , NS-Bionick and RobinTim software.
 #Copyright (C) 2022-2023 NS-Bionick Development Team
 #
 
