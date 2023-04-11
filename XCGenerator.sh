@@ -8,7 +8,7 @@
 schema=""
 bold=$(tput bold)
 normal=$(tput sgr0)
-confirm=$(cat ~/.xcConfirm.txt)
+confirm=$(cat ~/.xcConfirm.txt) 
 title=$(cat ~/.xcCreator.txt)
 
 NC='\033[0m' # No Color
@@ -25,102 +25,39 @@ echo -e "${YELLOW}${bold}$title${NC}"
 echo ""
 echo -e " ·-= Cual ${bold}xcframework ${normal}vamos a generar? =-·
 
- ${L_CYAN}1) Remesas
- 2) Nomina
- 3) Autobuses
- 4) Seguros
- 5) Compras
- 6) Pedidos
- 7) Compras Reverso
- 8) Chat
- 9) Searcher
- 10) Helper
- 11) Red Social
- 12) Syncronize
- 13) Multimedia
- 14) User Profile
- 15) Gifs${NC}"
+ ${L_CYAN}1) First Option
+ 2) Second Option
+ 3) Third Option
+ ${NC}"
 
 read xc
 
 case $xc in
+
+# Ej: 
+#     schema="GSSARemittances"
+#     cd ~/Documents/bazSuperApp/Remesas/GSSACoreFrameworks_iOS
+
  1 )
-    schema="GSSARemittances"
-    cd ~/Documents/bazSuperApp/Remesas/GSSACoreFrameworks_iOS
+    schema="Put schema name"
+    cd #TODO: Put the path to directory
  ;;
  2 )
-    schema="GSSAPayroll"
-    cd ~/Documents/bazSuperApp/Nomina/GSSACoreFrameworks_iOS
+    schema="Put schema name"
+    cd #TODO: Put the path to directory
  ;;
  3 )
-    schema="GSSABusTickets"
-    cd ~/Documents/bazSuperApp/Boletos/GSSACoreFrameworks_iOS
- ;;
- 4 )
-    schema="GSInsurance"
-    cd ~/Documents/bazSuperApp/Seguros/GSSACoreFrameworks_iOS
- ;;
-
- 5 )
-    schema="EKSAPurchases"
-    cd ~/Documents/bazSuperApp/MisCompras/GSSACoreFrameworks_iOS
- ;;
- 
- 6) schema="GSSAMyOrders"
-     cd ~/Documents/bazSuperApp/MisPedidos/GSSACoreFrameworks_iOS
- ;;
- 
- 7)
-    schema="EKSAPurchases"
-    cd ~/Documents/bazSuperApp/REVERSE_COMPRAS/GSSACoreFrameworks_iOS
- ;;
-
- 8)
-    schema="UPFMChat"
-    cd ~/Documents/bazSuperApp/UPAX/Chat/superapp-ios-sdk-chat
- ;;
-
- 9)
-    schema="UPFMSearcher"
-    cd ~/Documents/bazSuperApp/UPAX/Searcher/superapp-ios-sdk-searcher
- ;;
-
- 10)
-    schema="UPFMHelper"
-    cd ~/Documents/bazSuperApp/UPAX/Helper/superapp-ios-sdk-helper
- ;;
-
- 11)
-    schema="UPFMSocialNetwork"
-    cd ~/Documents/bazSuperApp/UPAX/Red\ Social/superapp-ios-sdk-socialnetwork
- ;;
-
- 12)
-    schema="UPFMDeviceContacts"
-    cd ~/Documents/bazSuperApp/UPAX/Sincronizacion/superapp-ios-sdk-synchronization
- ;;
-
- 13)
-    schema="UPFMMultimedia"
-    cd ~/Documents/bazSuperApp/UPAX/Multimedia/superapp-ios-sdk-multimedia
- ;;
-
- 14)
-    schema="UPFMUserProfile"
-    cd ~/Documents/bazSuperApp/UPAX/Profile/superapp-ios-sdk-profile
- ;;
-
- 15)
-    schema="UPFMGifs"
-    cd ~/Documents/bazSuperApp/UPAX/Multimedios/superapp-ios-sdk-multimedios
+    schema="Put schema name"
+    cd #TODO: Put the path to directory
  ;;
 
  * )
- echo -e "${CYAN}${bold}Pon atencion a las instrucciones todo ciego!!!"
+ echo -e "${CYAN}${bold}Elige una opción de la Lista."
  exit
  ;;
 
 esac
+
 
 if [[ -d ~/Desktop/XCFrameworks_${schema} ]]
 then
@@ -133,12 +70,11 @@ else
 fi
 
 echo "  Creando el xcframework de ${bold}>> ${schema} <<"
-
 echo "  Creando el Archive para Simulador  "
 
 echo -e "${PURPLE}${bold} "
 
-######################################################################################################
+################################# X G G E N E R A T E #################################################
 
 xcodebuild archive \
  -scheme ${schema} \
@@ -173,30 +109,24 @@ then
 
          echo -e "${GREEN}${bold}$confirm"
          open ~/desktop/XCFrameworks_${schema}
-         #exit
-
     else
          echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE DISPOSITIVO"
-         mv ~/${schema}-Dispositivo.txt  ~/DispositivoError_$(date +%Y-%m-%d_%H:%M:%S).txt
-   
-   fi
-
+         mv ~/${schema}-Dispositivo.txt  ~/DispositivoError_$(date +%d/%m/%Y_%H:%M:%S).txt
+    fi
 else
     echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE SIMULADOR"
-    mv ~/${schema}-Simulador.txt  ~/SimuladorError_$(date +%Y-%m-%d_%H:%M:%S).txt
+         mv ~/${schema}-Simulador.txt  ~/SimuladorError_$(date +%d/%m/%Y_%H:%M:%S).txt
     exit
 fi
-
 
 ######################################################################################################
 
 echo -e "Ahora, limpiaremos los archivos incesarios, hasta pronto!"
-
 rm -R ~/${schema}-*.*
 exit
 
 
+
 # TO-DO:
 # Agregar una animacion y saber donde pararla
-
 
