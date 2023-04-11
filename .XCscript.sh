@@ -119,7 +119,10 @@ esac
 
 if [[ -d ~/Desktop/XCFrameworks_${schema} ]]
 then
-   rm -R ~/Desktop/XCFrameworks_${schema}/*
+    if [[ -f * ]]
+    then
+       rm -R ~/Desktop/XCFrameworks_${schema}/*
+    fi
 else
    mkdir ~/Desktop/XCFrameworks_${schema}
 fi
@@ -128,9 +131,6 @@ echo "  Creando el xcframework de ${bold}>> ${schema} <<"
 echo "  Creando el Archive para Simulador  "
 
 echo -e "${PURPLE}${bold} "
-
-
-
 
 ######################################################################################################
 
@@ -171,13 +171,13 @@ then
 
     else
          echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE DISPOSITIVO"
-         mv ~/${schema}-Dispositivo.txt  ~/DispositivoError_$(date +%Y-%m-%d).txt
+         mv ~/${schema}-Dispositivo.txt  ~/DispositivoError_$(date +%Y-%m-%d_%H:%M:%S).txt
    
    fi
 
 else
     echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE SIMULADOR"
-    mv ~/${schema}-Simulador.txt  ~/SimuladorError_$(date +%Y-%m-%d).txt
+    mv ~/${schema}-Simulador.txt  ~/SimuladorError_$(date +%Y-%m-%d_%H:%M:%S).txt
     exit
 fi
 
@@ -194,10 +194,8 @@ exit
 
 # TO-DO:
 # Agregar una animacion y saber donde pararla
-# validar que si el directorio existe, pero no hay archivos, no mandar error
 
 #
 #XC Generator version 1.1 , NS-Bionick and RobinTim software.
 #Copyright (C) 2022-2023 NS-Bionick Development Team
 #
-
