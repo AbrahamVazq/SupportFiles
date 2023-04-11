@@ -177,13 +177,13 @@ then
 
     else
          echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE DISPOSITIVO"
-         mv ~/${schema}-Dispositivo.txt  ~/DispositivoError_$(date +%Y-%m-%d_%H:%M:%S).txt
+         mv ~/${schema}-Dispositivo.txt  ~/${schema}-DispositivoError_$(date +%Y-%m-%d_%H:%M:%S).txt
    
    fi
 
 else
     echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE SIMULADOR"
-    mv ~/${schema}-Simulador.txt  ~/SimuladorError_$(date +%Y-%m-%d_%H:%M:%S).txt
+    mv ~/${schema}-Simulador.txt  ~/${schema}-SimuladorError_$(date +%Y-%m-%d_%H:%M:%S).txt
     exit
 fi
 
