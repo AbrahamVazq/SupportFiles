@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#
+#XC Generator version 1.1 , NS-Bionick and RobinTim software.
+#Copyright (C) 2022-2023 NS-Bionick Development Team
+#
+
 schema=""
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -128,6 +133,7 @@ else
 fi
 
 echo "  Creando el xcframework de ${bold}>> ${schema} <<"
+
 echo "  Creando el Archive para Simulador  "
 
 echo -e "${PURPLE}${bold} "
@@ -195,7 +201,4 @@ exit
 # TO-DO:
 # Agregar una animacion y saber donde pararla
 
-#
-#XC Generator version 1.1 , NS-Bionick and RobinTim software.
-#Copyright (C) 2022-2023 NS-Bionick Development Team
-#
+
