@@ -124,8 +124,7 @@ esac
 
 if [[ -d ~/Desktop/XCFrameworks_${schema} ]]
 then
-    if [[ -f * ]]
-    then
+    if test -e ~/Desktop/XCFrameworks_${schema}/* ; then
        rm -R ~/Desktop/XCFrameworks_${schema}/*
     fi
 else
@@ -173,20 +172,16 @@ then
 
          echo -e "${GREEN}${bold}$confirm"
          open ~/desktop/XCFrameworks_${schema}
-         #exit
-
+         
     else
          echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE DISPOSITIVO"
          mv ~/${schema}-Dispositivo.txt  ~/${schema}-DispositivoError_$(date +%Y-%m-%d_%H:%M:%S).txt
-   
    fi
-
 else
     echo -e "${CYAN}${bold}ALGO OCURRIO EN GENERACION DE SIMULADOR"
     mv ~/${schema}-Simulador.txt  ~/${schema}-SimuladorError_$(date +%Y-%m-%d_%H:%M:%S).txt
     exit
 fi
-
 
 ######################################################################################################
 
@@ -198,5 +193,3 @@ exit
 
 # TO-DO:
 # Agregar una animacion y saber donde pararla
-
-
