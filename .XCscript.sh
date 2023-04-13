@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-#XC Generator version 1.1 , NS-Bionick and RobinTim software.
+#XC Generator version 1.3 , NS-Bionick and RobinTim software.
 #Copyright (C) 2022-2023 NS-Bionick Development Team
 #
 
@@ -9,7 +9,8 @@ schema=""
 bold=$(tput bold)
 normal=$(tput sgr0)
 confirm=$(cat ~/.xcConfirm.txt)
-title=$(cat ~/.xcCreator.txt)
+title=$(cat ~/XCGenLogo.txt)
+
 
 NC='\033[0m' # No Color
 RED='\033[0;31m'
@@ -21,7 +22,9 @@ YELLOW='\033[93m'
 PURPLE='\033[35m'
 BLUE='\033[34m'
 
-echo -e "${YELLOW}${bold}$title${NC}"
+clear
+
+echo -e "${BLUE}$title${NC}"
 echo ""
 echo -e " ·-= Cual ${bold}xcframework ${normal}vamos a generar? =-·
 
